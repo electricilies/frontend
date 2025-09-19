@@ -8,6 +8,7 @@
     "start": "next start",
     "prepare": "node .husky/install.mjs",
     "lint": "next lint",
+    "commitlint": "commitlint --edit",
     "lint:fix": "next lint --fix --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
