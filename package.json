@@ -8,10 +8,11 @@
     "start": "next start",
     "prepare": "node .husky/install.mjs",
     "lint": "next lint",
+    "check:type": "tsc --noEmit",
     "commitlint": "commitlint --edit",
     "lint:fix": "next lint --fix --ext .js,.jsx,.ts,.tsx",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format": "prettier --write '*/**/*.{js,jsx,ts,tsx}'",
+    "format:check": "prettier --check '*/**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {
     "next": "15.5.3",
@@ -33,6 +34,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
     "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
