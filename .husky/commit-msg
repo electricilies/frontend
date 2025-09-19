@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+npm run commitlint "$1"
+
+# vim:fileformat=unix filetype=sh
