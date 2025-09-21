@@ -44,5 +44,5 @@ jobs:
           file: ${{ inputs.app_dir }}/${{ inputs.dockerfile_path }}
           push: true
           tags: |
-            ghcr.io/${{ vars.github_repository }}:latest
-            ghcr.io/${{ vars.github_repository }}:${{ steps.commit-hash.outputs.commit }}
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ steps.commit-hash.outputs.commit }}
