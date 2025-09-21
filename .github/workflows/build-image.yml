@@ -37,11 +37,23 @@ jobs:
             ghcr.io/${{ github.repository }}:${{ steps.commit-hash.outputs.commit }}
 
   update-kube:
-    needs:
-      - build
-    uses: electricilies/kubernetes-manifest/.github/workflows/call-update-image.yaml@main
-    secrets:
-      electricilies-bot-private-key: ${{ secrets.ELECTRICILIES_BOT_PRIVATE_KEY }}
-    with:
-      images: ghcr.io/${{ github.repository }}
-      electricilies-bot-app-id: ${{ vars.ELECTRICILIES_BOT_APP_ID }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get token
+        id: get_token
+        uses: actions/create-github-app-token@v2
+        with:
+          private-key: ${{ secrets.ELECTRICILIES_BOT_PRIVATE_KEY }}
+          app-id: ${{ vars.ELECTRICILIES_BOT_APP_ID }}
+          owner: ${{ github.repository_owner }}
+          repositories: kubernetes-manifest
+      - name: Trigger Renovate
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ steps.get_token.outputs.token }}
+          repository: ${{ github.repository_owner }}/kubernetes-manifest
+          event-type: renovate
+          client-payload: |- # language: json
+            {
+              "images": "ghcr.io/${{ github.repository }}"
+            }
