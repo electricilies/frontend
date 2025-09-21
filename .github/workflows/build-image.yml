@@ -37,6 +37,11 @@ jobs:
             ghcr.io/${{ github.repository }}:${{ steps.commit-hash.outputs.commit }}
 
   update-kube:
+    needs:
+      - build
     uses: electricilies/kubernetes-manifest/.github/workflows/call-update-image.yaml@main
+    secrets:
+      electricilies-bot-private-key: ${{ secrets.ELECTRICILIES_BOT_PRIVATE_KEY }}
     with:
       images: ghcr.io/${{ github.repository }}
+      electricilies-bot-app-id: ${{ vars.ELECTRICILIES_BOT_APP_ID }}
