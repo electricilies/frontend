@@ -46,3 +46,8 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository }}:latest
             ghcr.io/${{ github.repository }}:${{ steps.commit-hash.outputs.commit }}
+
+  update-kube:
+    uses: electricilies/kubernetes-manifest/.github/workflows/call-update-image.yaml@main
+    with:
+      images: ghcr.io/${{ github.repository }}
