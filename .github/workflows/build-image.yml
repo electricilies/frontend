@@ -2,17 +2,6 @@ name: Build Image
 
 on:
   workflow_dispatch:
-    inputs:
-      app_dir:
-        required: false
-        type: string
-        default: .
-        description: Must not have / at the end
-      dockerfile_path:
-        required: false
-        default: Dockerfile
-        type: string
-        description: Relative path
 
 jobs:
   build:
@@ -27,7 +16,7 @@ jobs:
 
       - name: Get commit hash
         id: commit-hash
-        working-directory: ${{ inputs.app_dir }}
+        working-directory: .
         run: echo "commit=$(git rev-parse HEAD)" >>"${GITHUB_OUTPUT}"
 
       - name: Login
@@ -40,8 +29,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ${{ inputs.app_dir }}
-          file: ${{ inputs.app_dir }}/${{ inputs.dockerfile_path }}
+          context: .
+          file: ./Dockerfile
           push: true
           tags: |
             ghcr.io/${{ github.repository }}:latest
