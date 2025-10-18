@@ -10,6 +10,7 @@ RUN npm clean-install --ignore-scripts
 
 FROM deps AS build
 COPY . /app/
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 FROM base AS production

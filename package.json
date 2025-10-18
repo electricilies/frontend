@@ -12,7 +12,8 @@
     "commitlint": "commitlint --edit",
     "lint:fix": "next lint --fix --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write '*/**/*.{js,jsx,ts,tsx}'",
-    "format:check": "prettier --check '*/**/*.{js,jsx,ts,tsx}'"
+    "format:check": "prettier --check '*/**/*.{js,jsx,ts,tsx}'",
+    "next": "next"
   },
   "dependencies": {
     "next": "15.5.3",

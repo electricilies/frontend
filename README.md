@@ -18,4 +18,3 @@
     <img alt="Wakatime" src="https://wakatime.com/badge/github/electricilies/frontend.svg"/>
   </a>
 </div>
-
