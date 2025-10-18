@@ -59,12 +59,24 @@ jobs:
         run: npm run format:check
         continue-on-error: true
 
+      - name: Test
+        id: test
+        run: npm run test:run -- --coverage
+        continue-on-error: true
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: ${{ github.repository }}
+
       - name: Fail check if any failed
         run: |
           declare -A check_status=(
             ["Type check failed"]=${{ steps.typecheck.outcome == 'failure' }}
             ["Lint check failed"]=${{ steps.lint.outcome == 'failure' }}
             ["Format check failed"]=${{ steps.format.outcome == 'failure' }}
+            ["Test failed"]=${{ steps.test.outcome == 'failure' }}
           )
           fail=false
           for msg in "${!check_status[@]}"; do
