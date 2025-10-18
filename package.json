@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -13,9 +13,8 @@
     "lint:fix": "next lint --fix --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write '*/**/*.{js,jsx,ts,tsx}'",
     "format:check": "prettier --check '*/**/*.{js,jsx,ts,tsx}'",
-    "test:watch": "vitest",
-    "test:run": "vitest run",
-    "next": "next"
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "dependencies": {
     "next": "15.5.3",

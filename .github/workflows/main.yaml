@@ -15,19 +15,32 @@ on:
     branches:
       - main
     tags:
-      - "v*"
+      - v*
     paths:
-      - "src/**"
-      - "package.json"
-      - "package-lock.json"
+      - src/**
+      - package.json
+      - package-lock.json
+      - "**/*.js"
+      - "**/*.ts"
+      - "**/*.mjs"
+      - "**/*.mts"
+      - .prettierrc
+      - tsconfig.json
   pull_request:
     types:
       - opened
       - synchronize
       - reopened
     paths:
-      - "src/**"
-      - "package.json"
+      - src/**
+      - package.json
+      - package-lock.json
+      - "**/*.js"
+      - "**/*.ts"
+      - "**/*.mjs"
+      - "**/*.mts"
+      - .prettierrc
+      - tsconfig.json
 
 jobs:
   check:

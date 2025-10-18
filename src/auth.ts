@@ -14,16 +14,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     authorized({ auth }) {
       return !!auth?.user;
     },
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, account }) {
       if (account?.access_token) {
-        token.accessToken = account.access_token;
+        token.keycloakAccessToken = account.access_token;
       }
       return token;
     },
     async session({ session, token }) {
-      // Expose the Keycloak access_token to the client-side session
       if (token.accessToken) {
-        session.accessToken = token.accessToken;
+        session.keycloakAccessToken = token.keycloakAccessToken;
       }
       return session;
     },
