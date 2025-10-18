@@ -20,8 +20,6 @@ on:
       - "src/**"
       - "package.json"
       - "package-lock.json"
-      - "Dockerfile"
-      - ".github/workflows/**"
   pull_request:
     types:
       - opened
@@ -30,9 +28,6 @@ on:
     paths:
       - "src/**"
       - "package.json"
-      - "package-lock.json"
-      - "Dockerfile"
-      - ".github/workflows/**"
 
 jobs:
   check:
