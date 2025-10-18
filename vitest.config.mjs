@@ -6,5 +6,10 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: "jsdom",
+    passWithNoTests: true,
+    coverage: {
+      reporter: ["text", "json-summary", "json"],
+      reportOnFailure: true,
+    },
   },
 });
