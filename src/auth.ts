@@ -24,11 +24,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           Object.values(UserRole).includes(role as UserRole),
         )[0] as UserRole | null;
       }
+      if (profile?.address && profile.address instanceof String) {
+        token.address = profile.address as string;
+      }
       return token;
     },
     async session({ session, token }) {
       session.keycloakAccessToken = token.keycloakAccessToken;
       session.role = token.role;
+      session.address = token.address;
       return session;
     },
   },
