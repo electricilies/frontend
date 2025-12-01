@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 
@@ -11,6 +11,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -26,11 +32,7 @@ export default function RootLayout({
   return (
     <SessionProvider>
       <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
+        <body className={`${inter.variable} antialiased`}>{children}</body>
       </html>
     </SessionProvider>
   );
