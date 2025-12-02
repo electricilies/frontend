@@ -1,6 +1,9 @@
 import { ProductDetailBreadcrumb } from "@/app/(storefront)/products/[id]/_components/ProductDetailBreadcrumb/ProductDetailBreadcrumb";
 import { Product, ProductResponse } from "@/types/types";
 import { ProductDetailSection } from "@/app/(storefront)/products/[id]/_components/ProductDetailSection/ProductDetailSection";
+import { ProductDescriptionSection } from "@/app/(storefront)/products/[id]/_components/ProductDescriptionSection/ProductDescriptionSection";
+
+export const dynamic = "force-dynamic";
 
 interface ProductDetailPageProps {
   params: { id: string };
@@ -29,6 +32,10 @@ export default async function ProductDetailPage({
     >
       <ProductDetailBreadcrumb product={product} />
       <ProductDetailSection product={product} />
+      <ProductDescriptionSection
+        description={product.description}
+        attributes={product.attributes}
+      />
     </main>
   );
 }

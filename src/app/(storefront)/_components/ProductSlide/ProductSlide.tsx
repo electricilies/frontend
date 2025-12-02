@@ -60,7 +60,7 @@ export default function ProductSlide({ products }: ProductSlideProps) {
           initial="enter"
           animate="center"
           exit="exit"
-          className="flex w-full justify-start gap-6 overflow-hidden"
+          className={`flex w-full ${products.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE).length === 5 ? "justify-center" : "justify start"} gap-6 overflow-hidden`}
         >
           {products
             .slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE)

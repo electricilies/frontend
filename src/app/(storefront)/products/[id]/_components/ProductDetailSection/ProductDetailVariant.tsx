@@ -28,7 +28,7 @@ export function ProductDetailVariant({ product }: ProductDetailVariantProps) {
     });
   }, [product.variants, selectedOptions, product.options.length]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const currentParams = new URLSearchParams(
       Array.from(searchParams.entries()),
     );
@@ -48,7 +48,7 @@ export function ProductDetailVariant({ product }: ProductDetailVariantProps) {
       }
     }
     console.log("rerendered");
-  }, [selectedVariant, router, pathname, searchParams]);
+  }, [pathname, router, searchParams, selectedVariant]);*/
 
   // check if an option value is selectable
   const isOptionValueSelectable = (optionId: string, valueId: string) => {
