@@ -13,7 +13,6 @@ export default async function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store",
     },
   );
   if (!categoriesData.ok) {
