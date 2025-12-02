@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 
 export default function CounterPage() {
   const { data: session } = useSession();
-  console.log("hey", session);
+  console.log("hey", session?.address);
 
   const [count, setCount] = useState(0);
 

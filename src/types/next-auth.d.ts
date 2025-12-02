@@ -4,21 +4,34 @@ import "next-auth/jwt";
 
 declare module "next-auth" {
   export interface Profile {
-    roles: (UserRole | string)[];
-    address: string;
+    realm_access?: {
+      roles: string[];
+    };
+    address?: {
+      street_address: string;
+      locality: string;
+    };
   }
 
   export interface Session {
-    keycloakAccessToken: string;
+    accessToken: string;
     role: UserRole | null;
-    address: string;
+    address: {
+      street_address: string;
+      locality: string;
+    };
+    phoneNumber: string;
   }
 }
 
 declare module "next-auth/jwt" {
   export interface JWT {
-    keycloakAccessToken: string;
+    accessToken: string;
     role: UserRole | null;
-    address: string;
+    address: {
+      street_address: string;
+      locality: string;
+    };
+    phoneNumber: string;
   }
 }
