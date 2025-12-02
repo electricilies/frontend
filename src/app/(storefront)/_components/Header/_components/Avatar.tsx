@@ -9,7 +9,7 @@ export default function Avatar() {
       {session.data?.user ? (
         <div
           className={"h-[40px] w-[40px] rounded-full bg-cover bg-center"}
-          style={{ backgroundImage: `url('placeholderAvatar.png')` }}
+          style={{ backgroundImage: `url('/images/placeholderAvatar.png')` }}
         />
       ) : (
         <LogIn
