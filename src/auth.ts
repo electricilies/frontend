@@ -13,10 +13,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return !!auth?.user;
     },
     async jwt({ token, account, profile, user }) {
-      console.log("token before:", token);
-      console.log("account:", account);
-      console.log("profile:", profile);
-      console.log("user:", user);
       if (account?.access_token) {
         token.accessToken = account.access_token;
       }
