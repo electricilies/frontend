@@ -30,7 +30,10 @@ export default function ProductCard({ product }: ProductCardProps) {
       />
       <div className={"text-large line-clamp-3"}>{product.name}</div>
       <div className={"text-h4 text-tertiary mt-2 text-start font-bold"}>
-        {product.price.toFixed(2)}đ
+        {product.price.toLocaleString("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        })}
       </div>
     </Link>
   );
