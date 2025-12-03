@@ -15,7 +15,7 @@ export function ProductDescriptionText({
       <h2 className={"text-h4 font-bold"}>Mô tả sản phẩm</h2>
       <div className={"rounded-xl bg-slate-100 p-6"}>
         <div
-          className={`text-base whitespace-pre-line ${isFull ? "h-fit" : "max-h-80 overflow-hidden"}`}
+          className={`text-base whitespace-pre-line ${isFull ? "h-fit break-words" : "max-h-80 overflow-hidden"}`}
           dangerouslySetInnerHTML={{ __html: description }}
         />
         <div
