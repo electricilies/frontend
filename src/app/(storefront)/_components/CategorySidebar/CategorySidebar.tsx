@@ -17,7 +17,7 @@ export default function CategorySidebar({ categories }: CategorySidebarProps) {
         return (
           <Link
             key={category.id}
-            href={`/category/${category.id}`}
+            href={`/products?category_ids=${category.id}`}
             className={
               "cursor-pointer rounded-lg px-4 py-2 transition-colors duration-200 hover:bg-slate-300"
             }

@@ -24,7 +24,9 @@ export function ProductDetailBreadcrumb({
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/category/${product.category.id}`}>
+            <BreadcrumbLink
+              href={`/products?category_ids=${product.category.id}`}
+            >
               {product.category.name}
             </BreadcrumbLink>
           </BreadcrumbItem>
