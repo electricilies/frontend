@@ -1,7 +1,6 @@
 import { Product } from "@/types/types";
 import Link from "next/link";
 import Image from "next/image";
-import fallbackProductImage from "../../../../../public/images/fallbackProductImage.png";
 
 interface ProductCardProps {
   product: Product;
@@ -12,7 +11,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     ? product.images[0].url
     : product.variants[0]?.images[0]?.url
       ? product.variants[0].images[0].url
-      : fallbackProductImage;
+      : "/images/fallbackProductImage.png";
 
   return (
     <Link
@@ -27,6 +26,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         width={150}
         height={150}
         className="mb-4 h-[150px] w-auto rounded-md object-cover"
+        unoptimized={true}
       />
       <div className={"text-large line-clamp-3"}>{product.name}</div>
       <div className={"text-h4 text-tertiary mt-2 text-start font-bold"}>
