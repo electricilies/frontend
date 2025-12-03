@@ -2,6 +2,8 @@ import { ProductDetailBreadcrumb } from "@/app/(storefront)/products/[id]/_compo
 import { Product, ProductResponse } from "@/types/types";
 import { ProductDetailSection } from "@/app/(storefront)/products/[id]/_components/ProductDetailSection/ProductDetailSection";
 import { ProductDescriptionSection } from "@/app/(storefront)/products/[id]/_components/ProductDescriptionSection/ProductDescriptionSection";
+import { ProductReviewSection } from "@/app/(storefront)/products/[id]/_components/ProductReviewSection/ProductReviewSection";
+import ProductRecommendSection from "@/app/(storefront)/products/[id]/_components/ProductRecommendSection/ProductRecommendSection";
 
 export const dynamic = "force-dynamic";
 
@@ -36,6 +38,8 @@ export default async function ProductDetailPage({
         description={product.description}
         attributes={product.attributes}
       />
+      <ProductReviewSection rating={product.rating} />
+      <ProductRecommendSection />
     </main>
   );
 }
