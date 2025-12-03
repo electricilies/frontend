@@ -7,11 +7,11 @@ export interface Category {
 }
 
 export interface ResponseMetadata {
-  currentPage?: number;
-  itemsPerPage?: number;
-  pageItems?: number;
-  totalItems?: number;
-  totalPages?: number;
+  currentPage: number;
+  itemsPerPage: number;
+  pageItems: number;
+  totalItems: number;
+  totalPages: number;
 }
 
 export interface AttributeValue {
