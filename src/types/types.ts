@@ -18,9 +18,18 @@ export interface AttributeValue {
   id: string;
   value: string;
   deletedAt: string | null;
+  tempId?: string;
 }
 
 export interface Attribute {
+  id: string;
+  code: string;
+  name: string;
+  values: AttributeValue[];
+  deletedAt: string | null;
+}
+
+export interface ProductAttribute {
   id: string;
   code: string;
   name: string;
@@ -83,7 +92,7 @@ export interface Product {
   deletedAt: string | null;
 
   category: Category;
-  attributes: Attribute[];
+  attributes: ProductAttribute[];
   images: Image[];
   options: Option[];
   variants: Variant[];
@@ -96,5 +105,10 @@ export interface ProductResponse {
 
 export interface CategoryResponse {
   data: Category[];
+  meta: ResponseMetadata;
+}
+
+export interface AttributeResponse {
+  data: Attribute[];
   meta: ResponseMetadata;
 }

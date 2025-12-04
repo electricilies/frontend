@@ -1,9 +1,9 @@
-import { Attribute } from "@/types/types";
+import { ProductAttribute } from "@/types/types";
 import { ProductDescriptionText } from "@/app/(storefront)/products/[id]/_components/ProductDescriptionSection/ProductDescriptionText";
 
 interface ProductDescriptionSectionProps {
   description: string;
-  attributes: Attribute[];
+  attributes: ProductAttribute[];
 }
 
 export function ProductDescriptionSection({
@@ -26,7 +26,7 @@ export function ProductDescriptionSection({
                 {attribute.name}
               </span>
               <span className={"text-p-ui-medium bg-white p-4 break-words"}>
-                {attribute.value?.value || "N/A"}
+                {attribute.value.value || "N/A"}
               </span>
             </div>
           ))}
