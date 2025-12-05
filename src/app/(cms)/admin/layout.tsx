@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 export default function CMSLayout({ children }: { children: React.ReactNode }) {
   return (
     <UIProvider>
-      <div className="flex h-screen w-screen overflow-hidden bg-slate-100">
+      <div className="flex h-screen w-full overflow-hidden bg-slate-100">
         <Toaster position="bottom-right" richColors theme={"light"} />
         <NavigationBar />
         <div className={"flex h-full w-full flex-col justify-between"}>

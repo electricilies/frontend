@@ -90,7 +90,6 @@ export default async function ProductListingPage({
     },
   };
   const productFetchUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/products?${productQueryParams.toString()}`;
-  console.log(productFetchUrl);
   try {
     const productData = await fetch(productFetchUrl, { cache: "no-store" });
     if (productData.ok) {
