@@ -112,3 +112,8 @@ export interface AttributeResponse {
   data: Attribute[];
   meta: ResponseMetadata;
 }
+
+export interface CategoryResponse {
+  data: Category[];
+  meta: ResponseMetadata;
+}
