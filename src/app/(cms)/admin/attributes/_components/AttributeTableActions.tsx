@@ -26,7 +26,7 @@ export default function AttributeTableActions({
 
   return (
     <>
-      <EditButton size={"icon"}>
+      <EditButton>
         {({ close }) => (
           <AttributeDialogContent
             mode={"edit"}

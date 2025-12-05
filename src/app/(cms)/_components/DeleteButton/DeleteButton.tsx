@@ -30,6 +30,7 @@ interface DeleteButtonProps {
     | "ghost"
     | "link";
   size?: "default" | "sm" | "lg" | "icon";
+  iconSize?: number;
   className?: string;
 }
 
@@ -40,6 +41,7 @@ export function DeleteButton({
   variant = "ghost",
   size = "icon",
   className,
+  iconSize = 24,
 }: DeleteButtonProps) {
   const [open, setOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -69,7 +71,7 @@ export function DeleteButton({
           size={size}
           className={`text-red-500 hover:bg-red-50 hover:text-red-600 ${className}`}
         >
-          <Trash2 className="h-4 w-4" />
+          <Trash2 className="[&_svg]:size-4" size={iconSize} />
         </Button>
       </AlertDialogTrigger>
 

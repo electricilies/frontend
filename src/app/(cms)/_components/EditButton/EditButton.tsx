@@ -17,6 +17,7 @@ interface EditButtonProps {
     | "ghost"
     | "link";
   size?: "default" | "sm" | "lg" | "icon";
+  iconSize?: number;
 }
 
 export function EditButton({
@@ -24,6 +25,7 @@ export function EditButton({
   className,
   variant = "ghost",
   size = "icon",
+  iconSize = 24,
 }: EditButtonProps) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
@@ -32,7 +34,7 @@ export function EditButton({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant={variant} size={size} className={className}>
-          <Edit className="h-8 w-8" />
+          <Edit className="[&_svg]:size-4" size={iconSize} />
         </Button>
       </DialogTrigger>
       {children({ close })}
