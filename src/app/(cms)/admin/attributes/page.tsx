@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { AttributeResponse } from "@/types/types";
 import { EditButton } from "@/app/(cms)/_components/EditButton/EditButton";
 import AttributeTableActions from "@/app/(cms)/admin/attributes/_components/AttributeTableActions";
+import { CustomPagination } from "@/app/_components/CustomPagination";
 
 export default async function AttributesPage({
   searchParams,
@@ -42,7 +43,7 @@ export default async function AttributesPage({
     }
     attributesData = await data.json();
   } catch (error) {
-    toast.error(getErrorMessage(error));
+    console.error("Error fetching attributes:", error);
   }
 
   return (
@@ -52,34 +53,37 @@ export default async function AttributesPage({
         <AttributeHeaderOptions />
       </div>
       {attributesData ? (
-        <table className="w-full border-collapse overflow-hidden rounded-lg shadow-sm">
-          <thead>
-            <tr className="bg-gray-100 text-left text-[16px] font-bold text-gray-700">
-              <th className="border-r border-gray-200 px-4 py-3">Code</th>
-              <th className="border-r border-gray-200 px-4 py-3">Name</th>
-              <th className="px-4 py-3 text-center">Actions</th>
-            </tr>
-          </thead>
-
-          <tbody className="divide-y divide-gray-100 text-sm text-gray-700">
-            {attributesData.data.map((attr, index) => (
-              <tr
-                key={index}
-                className="transition-colors duration-200 hover:bg-gray-50"
-              >
-                <td className="border-gray-100 px-4 py-3 text-center">
-                  {attr.code}
-                </td>
-                <td className="border-gray-100 px-4 py-3 text-center">
-                  {attr.name}
-                </td>
-                <td className="gap-3 px-4 py-3 text-center">
-                  <AttributeTableActions attribute={attr} />
-                </td>
+        <>
+          <table className="w-full border-collapse overflow-hidden rounded-lg shadow-sm">
+            <thead>
+              <tr className="text-table-head bg-gray-100 text-left">
+                <th className="border-r border-gray-200 px-4 py-3">Code</th>
+                <th className="border-r border-gray-200 px-4 py-3">Name</th>
+                <th className="px-4 py-3 text-center">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody className="divide-border-general text-table-body divide-y text-left">
+              {attributesData.data.map((attr, index) => (
+                <tr
+                  key={index}
+                  className="transition-colors duration-200 hover:bg-gray-50"
+                >
+                  <td className="border-border-general px-4 py-3">
+                    {attr.code}
+                  </td>
+                  <td className="border-border-general px-4 py-3">
+                    {attr.name}
+                  </td>
+                  <td className="gap-2 px-4 py-3 text-center">
+                    <AttributeTableActions attribute={attr} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <CustomPagination totalPages={attributesData?.meta.totalPages} />
+        </>
       ) : (
         <p className="text-h4 text-gray-500">No attributes found.</p>
       )}

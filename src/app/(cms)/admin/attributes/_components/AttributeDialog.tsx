@@ -17,6 +17,7 @@ import {
 import { PlusCircle, Trash2, Loader2 } from "lucide-react";
 import { Attribute } from "@/types/types";
 import { getErrorMessage } from "@/app/lib/utils";
+import { useSession } from "next-auth/react";
 
 interface FormAttributeValue {
   id?: string;
@@ -34,6 +35,7 @@ export function AttributeDialogContent({
   attribute,
   onSuccess,
 }: AttributeDialogContentProps) {
+  const session = useSession();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -81,8 +83,8 @@ export function AttributeDialogContent({
   };
 
   const handleSave = async () => {
-    if (!code.trim()) return toast.error("Vui lòng nhập mã attribute");
-    if (!name.trim()) return toast.error("Vui lòng nhập tên attribute");
+    if (!code.trim()) return toast.error("Vui lòng nhập mã thuộc tính");
+    if (!name.trim()) return toast.error("Vui lòng nhập tên thuộc tính");
 
     const cleanValues = values.filter((v) => v.value.trim() !== "");
     if (cleanValues.length === 0)
@@ -98,13 +100,16 @@ export function AttributeDialogContent({
       if (mode === "create") {
         const resAttr = await fetch(`${baseUrl}/attributes`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.data?.accessToken || ""}`,
+          },
           body: JSON.stringify({ code, name }),
         });
 
         if (!resAttr.ok) {
           const err = await resAttr.json();
-          throw new Error(err.message || "Lỗi khi tạo attribute");
+          throw new Error(err.message || "Lỗi khi tạo thuộc tính");
         }
 
         const dataAttr: Attribute = await resAttr.json();
@@ -116,7 +121,10 @@ export function AttributeDialogContent({
           `${baseUrl}/attributes/${currentAttributeId}`,
           {
             method: "PATCH",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${session.data?.accessToken || ""}`,
+            },
             body: JSON.stringify({ name }),
           },
         );
@@ -143,6 +151,10 @@ export function AttributeDialogContent({
               `${baseUrl}/attributes/${currentAttributeId}/values/${delItem.id}`,
               {
                 method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${session.data?.accessToken || ""}`,
+                },
               },
             ),
           );
@@ -161,7 +173,10 @@ export function AttributeDialogContent({
                 `${baseUrl}/attributes/${currentAttributeId}/values/${val.id}`,
                 {
                   method: "PATCH",
-                  headers: { "Content-Type": "application/json" },
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${session.data?.accessToken || ""}`,
+                  },
                   body: JSON.stringify({ value: valContent }),
                 },
               ),
@@ -171,7 +186,10 @@ export function AttributeDialogContent({
           valuePromises.push(
             fetch(`${baseUrl}/attributes/${currentAttributeId}/values`, {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${session.data?.accessToken || ""}`,
+              },
               body: JSON.stringify({ value: valContent }),
             }),
           );
