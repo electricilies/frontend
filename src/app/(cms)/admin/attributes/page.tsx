@@ -7,6 +7,8 @@ import { EditButton } from "@/app/(cms)/_components/EditButton/EditButton";
 import AttributeTableActions from "@/app/(cms)/admin/attributes/_components/AttributeTableActions";
 import { CustomPagination } from "@/app/_components/CustomPagination";
 
+export const dynamic = "force-dynamic";
+
 export default async function AttributesPage({
   searchParams,
 }: {

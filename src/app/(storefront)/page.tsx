@@ -5,6 +5,8 @@ import ProductCard from "@/app/(storefront)/_components/ProductCard/ProductCard"
 import BestSeller from "@/app/(storefront)/_components/BestSeller/BestSeller";
 import CategoriesProductSection from "@/app/(storefront)/_components/CategoriesProductSection/CategoriesProductSection";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const categoriesData = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/categories`,

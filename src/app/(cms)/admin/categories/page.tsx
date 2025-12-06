@@ -4,6 +4,8 @@ import { CategoryResponse } from "@/types/types";
 import CategoryTableActions from "@/app/(cms)/admin/categories/_components/CategoryTableActions";
 import { CustomPagination } from "@/app/_components/CustomPagination";
 
+export const dynamic = "force-dynamic";
+
 export default async function CategoriesPage({
   searchParams,
 }: {

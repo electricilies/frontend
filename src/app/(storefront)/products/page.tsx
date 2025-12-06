@@ -6,6 +6,8 @@ import { useSession } from "next-auth/react";
 import SortButton from "@/app/(storefront)/products/_components/SortButton";
 import FilterButton from "@/app/(storefront)/products/_components/FilterButton";
 
+export const dynamic = "force-dynamic";
+
 interface ProductListingPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
