@@ -22,8 +22,11 @@ export const optionItemSchema = z.object({
 
 export const variantItemSchema = z.object({
   sku: z.string().min(1, "SKU không được để trống"),
-  price: z.coerce.number().min(0, "Giá phải lớn hơn hoặc bằng 0"),
-  quantity: z.coerce.number().min(0, "Số lượng phải lớn hơn hoặc bằng 0"),
+  // https://github.com/colinhacks/zod/issues/5010 - issue when coerce gets type unknown
+  price: z.coerce.number<string>().min(0, "Giá phải lớn hơn hoặc bằng 0"),
+  quantity: z.coerce
+    .number<string>()
+    .min(0, "Số lượng phải lớn hơn hoặc bằng 0"),
   images: z.array(imageSchema).optional().default([]),
   options: z
     .array(
@@ -42,11 +45,13 @@ export const productSchema = z.object({
   images: z.array(imageSchema).optional(),
   attributes: z.array(attributeItemSchema).optional().default([]),
   options: z.array(optionItemSchema).optional().default([]),
-  variants: z.array(variantItemSchema).optional().default([]),
+  variants: z.array(variantItemSchema).default([]),
 });
 
 export type ImageValues = z.infer<typeof imageSchema>;
 export type AttributeItemValues = z.infer<typeof attributeItemSchema>;
 export type OptionItemValues = z.infer<typeof optionItemSchema>;
 export type VariantItemValues = z.infer<typeof variantItemSchema>;
+export type VariantItemInput = z.input<typeof variantItemSchema>;
+export type VariantItemOutput = z.output<typeof variantItemSchema>;
 export type ProductFormValues = z.infer<typeof productSchema>;
