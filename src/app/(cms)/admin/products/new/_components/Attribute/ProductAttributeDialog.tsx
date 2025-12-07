@@ -29,6 +29,7 @@ import { Edit, PlusCircle, Loader2 } from "lucide-react";
 import { Attribute, AttributeResponse } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { fetcher } from "@/lib/utils";
 
 interface AttributeDialogProps {
   mode: "create" | "edit";
@@ -36,14 +37,6 @@ interface AttributeDialogProps {
   onSave: (data: AttributeItemValues) => void;
   existingAttributeIds: string[];
 }
-
-const fetcher = (url: string, token: string): Promise<AttributeResponse> =>
-  fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  }).then((res) => res.json());
 
 export function ProductAttributeDialog({
   mode,
