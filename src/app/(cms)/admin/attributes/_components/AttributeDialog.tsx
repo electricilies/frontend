@@ -223,7 +223,6 @@ export function AttributeDialogContent({
       </DialogHeader>
 
       <div className="grid gap-6 py-4">
-        {/* Input Code */}
         <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="code" className="text-right font-semibold">
             Mã (Code)
@@ -238,7 +237,6 @@ export function AttributeDialogContent({
           />
         </div>
 
-        {/* Input Name */}
         <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="name" className="text-right font-semibold">
             Tên

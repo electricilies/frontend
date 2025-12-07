@@ -6,6 +6,8 @@ import { CustomPagination } from "@/app/_components/CustomPagination";
 import Image from "next/image";
 import ProductHeaderOptions from "@/app/(cms)/admin/products/_components/ProductHeaderOptions";
 
+export const dynamic = "force-dynamic";
+
 export default async function CategoriesPage({
   searchParams,
 }: {

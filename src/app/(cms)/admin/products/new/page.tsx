@@ -2,6 +2,8 @@ import { auth } from "@/auth";
 import { CategoryResponse, Product } from "@/types/types";
 import NewProductForm from "@/app/(cms)/admin/products/new/NewProductForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewProductPage() {
   const session = await auth();
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`, {
