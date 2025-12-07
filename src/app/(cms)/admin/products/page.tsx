@@ -1,7 +1,5 @@
-import CategoryHeaderOptions from "@/app/(cms)/admin/categories/_components/CategoryHeaderOptions";
 import { auth } from "@/auth";
-import { CategoryResponse, Product, ProductResponse } from "@/types/types";
-import CategoryTableActions from "@/app/(cms)/admin/categories/_components/CategoryTableActions";
+import { Product, ProductResponse } from "@/types/types";
 import { CustomPagination } from "@/app/_components/CustomPagination";
 import Image from "next/image";
 import ProductHeaderOptions from "@/app/(cms)/admin/products/_components/ProductHeaderOptions";

@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { CategoryResponse, Product } from "@/types/types";
+import { CategoryResponse } from "@/types/types";
 import NewProductForm from "@/app/(cms)/admin/products/new/NewProductForm";
 
 export const dynamic = "force-dynamic";

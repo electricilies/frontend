@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function ProductHeaderOptions() {
+  // redirect to new product page on plus button click
   return (
     <div className={"flex"}>
       <Button
@@ -12,7 +13,9 @@ export default function ProductHeaderOptions() {
         size={"icon"}
         className={"rounded-full border-1 border-slate-200 bg-white"}
       >
-        <Plus href={"/admin/products/new"} className="h-4 w-4" />
+        <a href={"/admin/products/new"}>
+          <Plus className="h-4 w-4" href={"/admin/products/new"} />
+        </a>
       </Button>
       <SearchInput
         className={"ml-4 w-[300px] rounded-full"}
