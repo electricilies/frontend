@@ -93,9 +93,9 @@ export default function NavigationBar() {
                     {item.label}
                   </div>
                   {isOpen.get(item.label) ? (
-                    <DynamicIcon name={"chevron-down"} size={30} />
-                  ) : (
                     <DynamicIcon name={"chevron-up"} size={30} />
+                  ) : (
+                    <DynamicIcon name={"chevron-down"} size={30} />
                   )}
                 </button>
                 {isOpen.get(item.label) && (
