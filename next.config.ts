@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "salt.tikicdn.com",
+      },
+      {
+        protocol: "https",
+        hostname: 'minio-api-electricilies.kevinnitro.id.vn',
       }
     ]
   }
