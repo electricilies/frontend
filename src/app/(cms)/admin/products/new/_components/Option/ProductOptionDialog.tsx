@@ -49,6 +49,19 @@ export function ProductOptionDialog({
     }
   }, [mode, defaultValues, form]);
 
+  useEffect(() => {
+    if (!open) {
+      form.reset(
+        mode === "edit" && defaultValues
+          ? defaultValues
+          : {
+              name: "",
+              values: [""],
+            },
+      );
+    }
+  }, [open, form, mode, defaultValues]);
+
   const values = form.watch("values");
 
   const handleAddValue = () => {
