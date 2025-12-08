@@ -3,7 +3,7 @@ import { z } from "zod";
 export const imageSchema = z.object({
   url: z.string().url("URL hình ảnh không hợp lệ"),
   key: z.string().min(1, "Key ảnh bắt buộc"),
-  order: z.coerce.number().default(0),
+  order: z.coerce.number<number>().default(1),
 });
 
 export const attributeItemSchema = z.object({
@@ -23,10 +23,8 @@ export const optionItemSchema = z.object({
 export const variantItemSchema = z.object({
   sku: z.string().min(1, "SKU không được để trống"),
   // https://github.com/colinhacks/zod/issues/5010 - issue when coerce gets type unknown
-  price: z.coerce.number<string>().min(0, "Giá phải lớn hơn hoặc bằng 0"),
-  quantity: z.coerce
-    .number<string>()
-    .min(0, "Số lượng phải lớn hơn hoặc bằng 0"),
+  price: z.coerce.number<number>().min(1, "Giá phải lớn hơn 0"),
+  quantity: z.coerce.number<number>().min(1, "Số lượng phải lớn hơn 0"),
   images: z.array(imageSchema).optional().default([]),
   options: z
     .array(
@@ -40,18 +38,20 @@ export const variantItemSchema = z.object({
 
 export const productSchema = z.object({
   name: z.string().min(1, "Tên sản phẩm không được để trống"),
-  description: z.string().optional(),
+  description: z.string().min(11, "Mô tả sản phẩm phải có ít nhất 10 ký tự"),
   categoryId: z.string().min(1, "Chọn danh mục sản phẩm"),
-  images: z.array(imageSchema).optional(),
+  images: z.array(imageSchema).min(1, "Thêm ít nhất một hình ảnh cho sản phẩm"),
   attributes: z.array(attributeItemSchema).optional().default([]),
   options: z.array(optionItemSchema).optional().default([]),
-  variants: z.array(variantItemSchema).default([]),
+  variants: z
+    .array(variantItemSchema)
+    .min(1, "Thêm ít nhất một biến thể cho sản phẩm"),
 });
 
-export type ImageValues = z.infer<typeof imageSchema>;
+// export type ImageValues = z.infer<typeof imageSchema>;
 export type AttributeItemValues = z.infer<typeof attributeItemSchema>;
 export type OptionItemValues = z.infer<typeof optionItemSchema>;
-export type VariantItemValues = z.infer<typeof variantItemSchema>;
+// export type VariantItemValues = z.infer<typeof variantItemSchema>;
 export type VariantItemInput = z.input<typeof variantItemSchema>;
 export type VariantItemOutput = z.output<typeof variantItemSchema>;
 export type ProductFormValues = z.infer<typeof productSchema>;
