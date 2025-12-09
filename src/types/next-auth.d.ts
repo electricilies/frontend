@@ -14,6 +14,7 @@ declare module "next-auth" {
   }
 
   export interface Session {
+    userId: string;
     accessToken: string;
     role: UserRole | null;
     address: {
@@ -26,6 +27,7 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
   export interface JWT {
+    userId: string;
     accessToken: string;
     role: UserRole | null;
     address: {

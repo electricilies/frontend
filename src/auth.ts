@@ -12,7 +12,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     authorized({ auth }) {
       return !!auth?.user;
     },
-    async jwt({ token, account, profile, user }) {
+    async jwt({ token, account, profile }) {
+      token.userId = token.userId || profile?.sub || "";
       if (account?.access_token) {
         token.accessToken = account.access_token;
       }
@@ -37,6 +38,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.role = token.role;
       session.address = token.address;
       session.phoneNumber = token.phoneNumber;
+      if (token.sub) {
+        session.user.id = token.userId;
+      }
       return session;
     },
   },
