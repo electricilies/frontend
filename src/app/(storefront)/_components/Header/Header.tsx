@@ -20,7 +20,7 @@ export default async function Header() {
         <UserButton />
         <DocumentButton />
         <CartButton />
-        <Avatar />
+        <Avatar mode={"storefront"} />
       </div>
     </header>
   );

@@ -2,6 +2,7 @@
 import { SidebarClose, LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useUI } from "@/app/(cms)/_context/UIContext";
+import Avatar from "@/app/(storefront)/_components/Header/_components/Avatar";
 
 export default function CMSHeader() {
   const { setNavCollapsed } = useUI();
@@ -15,10 +16,7 @@ export default function CMSHeader() {
         <SidebarClose size={30} />
       </div>
       <div className="flex items-center justify-center gap-8">
-        <div
-          className={"h-[50px] w-[50px] rounded-full bg-cover bg-center"}
-          style={{ backgroundImage: `url('/images/avatarPlaceholder.png')` }}
-        />
+        <Avatar mode={"cms"} />
         <LogOut
           onClick={() => signOut({ redirectTo: "/" })}
           size={30}

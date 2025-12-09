@@ -106,6 +106,7 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
   const onSubmit = async (data: ProductFormValues) => {
     if (data.images.length === 0) {
       setIsEmptyImages(true);
+      return;
     } else {
       setIsEmptyImages(false);
     }
@@ -134,7 +135,6 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
         if (variant.images && variant.images.length > 0) {
           removeVariant(index);
         }
-        // todo: remove uploaded variant images somehow, not in business logic yet
       });
       return;
     }

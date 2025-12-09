@@ -1,7 +1,6 @@
 "use client";
 import { LogIn } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 
-export default function Avatar() {
+export default function Avatar({ mode }: { mode: "cms" | "storefront" }) {
   const session = useSession();
 
   return (
@@ -30,12 +29,14 @@ export default function Avatar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent className={"w-40"} align={"center"}>
               <DropdownMenuItem>
-                Signed in as <br /> <strong>{session.data.user.email}</strong>
+                <strong>{session.data.user.email}</strong>
               </DropdownMenuItem>
               {(session.data.role === "admin" ||
                 session.data.role === "staff") && (
                 <DropdownMenuItem>
-                  <Link href={"/admin"}>Admin Panel</Link>
+                  <Link href={mode === "cms" ? "/" : "/admin"}>
+                    {mode === "cms" ? "Storefront" : "Admin Panel"}
+                  </Link>
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem>
