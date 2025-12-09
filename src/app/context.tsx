@@ -11,7 +11,6 @@ export interface OrderItem {
   name?: string;
   price?: number;
   image?: string;
-  options: OptionValue[];
 }
 
 interface OrderContextType {

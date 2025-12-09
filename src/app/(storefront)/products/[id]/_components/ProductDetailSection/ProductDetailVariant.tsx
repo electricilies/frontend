@@ -1,16 +1,18 @@
 "use client";
 import { Product, Variant } from "@/types/types";
-import { useState, useMemo, useEffect } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useState, useMemo } from "react";
+import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 interface ProductDetailVariantProps {
   product: Product;
 }
 
 export function ProductDetailVariant({ product }: ProductDetailVariantProps) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const session = useSession();
+  const token = session.data?.accessToken;
+  const [isLoading, setIsLoading] = useState(false);
+
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
@@ -28,27 +30,52 @@ export function ProductDetailVariant({ product }: ProductDetailVariantProps) {
     });
   }, [product.variants, selectedOptions, product.options.length]);
 
-  /*useEffect(() => {
-    const currentParams = new URLSearchParams(
-      Array.from(searchParams.entries()),
+  const addToCart = async () => {
+    if (!selectedVariant) return;
+    setIsLoading(true);
+    const cartResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/carts/me`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      },
     );
-    if (selectedVariant) {
-      if (currentParams.get("variant") !== selectedVariant.id) {
-        currentParams.set("variant", selectedVariant.id);
-        router.replace(`${pathname}?${currentParams.toString()}`, {
-          scroll: false,
-        });
-      } else {
-        if (currentParams.has("variant")) {
-          currentParams.delete("variant");
-          router.replace(`${pathname}?${currentParams.toString()}`, {
-            scroll: false,
-          });
-        }
-      }
+    if (!cartResponse.ok) {
+      setIsLoading(false);
+      console.error("Failed to fetch cart");
+      return;
     }
-    console.log("rerendered");
-  }, [pathname, router, searchParams, selectedVariant]);*/
+    const cartData = await cartResponse.json();
+    const cartId = cartData.id;
+
+    const addItemResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/carts/${cartId}/item`,
+      {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: product.id,
+          productVariantId: selectedVariant.id,
+          quantity: 1,
+        }),
+      },
+    );
+
+    if (!addItemResponse.ok) {
+      setIsLoading(false);
+      console.error("Thêm sản phẩm vào giỏ hàng thất bại");
+      return;
+    }
+
+    setIsLoading(false);
+    toast.success("Đã thêm sản phẩm vào giỏ hàng");
+  };
 
   // check if an option value is selectable
   const isOptionValueSelectable = (optionId: string, valueId: string) => {
@@ -179,7 +206,8 @@ export function ProductDetailVariant({ product }: ProductDetailVariantProps) {
           Mua ngay
         </button>
         <button
-          disabled={displayStock === 0 || !selectedVariant}
+          disabled={displayStock === 0 || !selectedVariant || isLoading}
+          onClick={addToCart}
           className={`text-h4 flex-grow rounded-lg py-4 font-medium transition-colors ${
             displayStock === 0 || !selectedVariant
               ? "cursor-not-allowed bg-slate-400 text-white"
