@@ -98,10 +98,25 @@ export interface Product {
   variants: Variant[];
 }
 
+export interface CartItemProduct {
+  id: string;
+  name: string;
+  price: number;
+  rating: number;
+}
+
+export interface CartItemVariant {
+  id: string;
+  sku: string;
+  price: number;
+  quantity: number;
+  images: Image[];
+}
+
 export interface CartItem {
   id: string;
-  product: Product;
-  productVariant: Variant;
+  product: CartItemProduct;
+  productVariant: CartItemVariant;
   quantity: number;
 }
 
