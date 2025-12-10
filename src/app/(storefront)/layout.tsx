@@ -1,6 +1,6 @@
 import Header from "@/app/(storefront)/_components/Header/Header";
 import Footer from "@/app/(storefront)/_components/Footer/Footer";
-import { OrderProvider } from "@/app/context";
+import { OrderProvider } from "@/app/context/OrderContext";
 import { Toaster } from "@/components/ui/sonner";
 
 export default function StorefrontLayout({

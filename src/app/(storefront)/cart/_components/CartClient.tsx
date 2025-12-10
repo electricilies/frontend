@@ -2,12 +2,13 @@
 import { CustomBreadcrumb } from "@/app/_components/CustomBreadcrumb";
 import { CartItemCard } from "@/app/(storefront)/cart/_components/CartItemCard";
 import { OrderSummary } from "@/app/(storefront)/cart/_components/OrderSummary";
-import { OrderItem } from "@/app/context";
+import { OrderItem } from "@/app/context/OrderContext";
 import { Cart } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import CartButtons from "@/app/(storefront)/cart/_components/CartButtons";
 
 interface CartClientProps {
   cartData: Cart;
@@ -113,8 +114,9 @@ export default function CartClient({ cartData }: CartClientProps) {
             ))
           )}
         </div>
-        <div className={"w-fit flex-col"}>
+        <div className={"w-fit flex-col space-y-4"}>
           <OrderSummary OrderItems={currentOrderItems} />
+          <CartButtons OrderItems={currentOrderItems} />
         </div>
       </div>
     </div>

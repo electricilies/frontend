@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { OrderItem } from "@/app/context";
+import { OrderItem } from "@/app/context/OrderContext";
 
 interface CartItemCardProps {
   item: CartItem;
