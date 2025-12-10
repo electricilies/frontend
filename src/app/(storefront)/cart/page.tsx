@@ -2,6 +2,8 @@ import { Cart } from "@/types/types";
 import { auth } from "@/auth";
 import CartClient from "@/app/(storefront)/cart/_components/CartClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function CartPage() {
   const session = await auth();
   const token = session?.accessToken;

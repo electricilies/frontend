@@ -111,7 +111,6 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
       setIsEmptyImages(false);
     }
     const payload = transformProductData(data);
-    console.log("payload", payload);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/products`,
       {
@@ -141,7 +140,6 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
 
     const createdProduct = await response.json();
     toast.success("Tạo sản phẩm thành công");
-    console.log(createdProduct);
     setTimeout(() => {
       window.open(`/products/${createdProduct.id}`, "_blank");
     });
@@ -185,9 +183,7 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
   return (
     <form
       id={"new-product-form"}
-      onSubmit={form.handleSubmit(onSubmit, (errors) => {
-        console.log("Form errors:", errors);
-      })}
+      onSubmit={form.handleSubmit(onSubmit)}
       className="flex w-full flex-col gap-10"
     >
       <div className={"flex w-full gap-30"}>

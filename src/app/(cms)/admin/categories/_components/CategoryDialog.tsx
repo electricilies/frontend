@@ -45,7 +45,7 @@ export function CategoryDialogContent({
   }, [mode, category]);
 
   const handleSave = async () => {
-    if (!name.trim()) return toast.error("Vui lòng nhập tên category");
+    if (!name.trim()) return toast.error("Vui lòng nhập tên danh mục");
 
     setIsLoading(true);
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -81,7 +81,10 @@ export function CategoryDialogContent({
           },
         );
 
-        if (!resAttr.ok) throw new Error("Lỗi khi cập nhật danh mục");
+        if (!resAttr.ok) {
+          const err = await resAttr.json();
+          throw new Error(err.message || "Lỗi khi cập nhật danh mục");
+        }
       }
       toast.success(
         `${mode === "create" ? "Tạo danh mục thành công" : "Cập nhật danh mục thành công"}`,
