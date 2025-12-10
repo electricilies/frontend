@@ -3,12 +3,15 @@ import { Product, Variant } from "@/types/types";
 import { useState, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
+import { useOrder } from "@/app/context/OrderContext";
+import Link from "next/link";
 
 interface ProductDetailVariantProps {
   product: Product;
 }
 
 export function ProductDetailVariant({ product }: ProductDetailVariantProps) {
+  const { setOrderItems } = useOrder();
   const session = useSession();
   const token = session.data?.accessToken;
   const [isLoading, setIsLoading] = useState(false);
@@ -196,6 +199,20 @@ export function ProductDetailVariant({ product }: ProductDetailVariantProps) {
       </span>
       <div className={"flex w-full gap-8"}>
         <button
+          onClick={() =>
+            setOrderItems(
+              [
+                {
+                  productId: product.id,
+                  productVariantId: selectedVariant ? selectedVariant.id : "",
+                  name: product.name,
+                  price: displayPrice,
+                  quantity: 1,
+                },
+              ],
+              "product_page",
+            )
+          }
           disabled={displayStock === 0 || !selectedVariant}
           className={`text-h4 flex-grow rounded-lg py-4 font-medium text-white transition-colors ${
             displayStock === 0 || !selectedVariant
@@ -203,7 +220,7 @@ export function ProductDetailVariant({ product }: ProductDetailVariantProps) {
               : "cursor-pointer bg-red-500 hover:bg-red-700"
           }`}
         >
-          Mua ngay
+          <Link href={"/checkout"}>Mua ngay</Link>
         </button>
         <button
           disabled={displayStock === 0 || !selectedVariant || isLoading}
