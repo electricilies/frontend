@@ -29,6 +29,7 @@ const navItems: NavItem[] = [
   { label: "Products", icon: "package-2", href: null, type: "parent" },
   { label: "Product List", href: "/admin/products", type: "sub" },
   { label: "Add Product", href: "/admin/products/new", type: "sub" },
+  { label: "Orders", icon: "clipboard", href: "/admin/orders", type: "main" },
 ];
 
 export default function NavigationBar() {

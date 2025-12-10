@@ -127,6 +127,35 @@ export interface Cart {
   userId: string;
 }
 
+export interface OrderItemVariant {
+  id: string;
+  sku: string;
+}
+
+export interface OrderItem {
+  id: string;
+  price: number;
+  product: CartItemProduct;
+  productVariant: OrderItemVariant;
+  quantity: number;
+}
+
+export interface Order {
+  address: string;
+  created_at: string;
+  id: string;
+  is_paid: boolean;
+  items: OrderItem[];
+  payment_url: string | null;
+  phone_number: string;
+  recipent_name: string;
+  provider: "COD" | "VNPAY" | "MOMO" | "ZALOPAY";
+  status: "Pending" | "Processing" | "Shipped" | "Cancelled" | "Delivered";
+  total_amount: number;
+  updated_at: string;
+  user_id: string;
+}
+
 export interface ProductResponse {
   data: Product[];
   meta: ResponseMetadata;
@@ -144,5 +173,10 @@ export interface AttributeResponse {
 
 export interface CategoryResponse {
   data: Category[];
+  meta: ResponseMetadata;
+}
+
+export interface OrderResponse {
+  data: Order[];
   meta: ResponseMetadata;
 }
