@@ -2,6 +2,14 @@ import Header from "@/app/(storefront)/_components/Header/Header";
 import Footer from "@/app/(storefront)/_components/Footer/Footer";
 import { OrderProvider } from "@/app/context/OrderContext";
 import { Toaster } from "@/components/ui/sonner";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Storefront",
+    default: "Storefront",
+  },
+};
 
 export default function StorefrontLayout({
   children,

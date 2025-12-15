@@ -3,6 +3,15 @@ import CMSHeader from "@/app/(cms)/_components/Header";
 import { UIProvider } from "@/app/(cms)/_context/UIContext";
 import CMSFooter from "@/app/(cms)/_components/Footer";
 import { Toaster } from "@/components/ui/sonner";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | CMS Dashboard",
+    default: "CMS Dashboard",
+  },
+  description: "Content Management System Dashboard",
+};
 
 export default function CMSLayout({ children }: { children: React.ReactNode }) {
   return (
