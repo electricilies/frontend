@@ -1,8 +1,9 @@
 import { auth } from "@/auth";
-import { Product, ProductResponse } from "@/types/types";
+import { CategoryResponse, Product, ProductResponse } from "@/types/types";
 import { CustomPagination } from "@/app/_components/CustomPagination";
 import Image from "next/image";
 import ProductHeaderOptions from "@/app/(cms)/admin/products/_components/ProductHeaderOptions";
+import ProductTableActions from "@/app/(cms)/admin/products/_components/ProductTableActions";
 
 export const dynamic = "force-dynamic";
 
@@ -50,10 +51,31 @@ export default async function CategoriesPage({
 
   if (!data.ok) {
     const err = await data.json();
-    throw new Error(err.message || "Failed to fetch products");
+    console.error("Error fetching products:", err.message);
+    return (
+      <div className="text-center text-red-500">
+        Failed to load products: {err.message || "Unknown error"}
+      </div>
+    );
   }
 
   const productsData: ProductResponse = await data.json();
+
+  const catRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+      contentType: "application/json",
+    },
+    cache: "no-store",
+  });
+
+  if (!catRes.ok) {
+    const err = await catRes.json();
+    throw new Error(err.message || "Failed to fetch categories");
+  }
+
+  const categoriesData: CategoryResponse = await catRes.json();
+  const categories = categoriesData.data;
 
   const getImageSrc = (product: Product) => {
     return product.images[0]?.url
@@ -121,7 +143,12 @@ export default async function CategoriesPage({
                       unoptimized={true}
                     />
                   </td>
-                  <td className="gap-2 px-4 py-3 text-center">a</td>
+                  <td className="gap-2 px-4 py-3 text-center">
+                    <ProductTableActions
+                      product={product}
+                      categories={categories}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
