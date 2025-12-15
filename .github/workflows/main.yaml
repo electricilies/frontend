@@ -158,6 +158,8 @@ jobs:
             ghcr.io/${{ github.repository }}:latest
             ghcr.io/${{ github.repository }}:${{ steps.commit-hash.outputs.commit }}
             ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+          secret-envs:
+            NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
 
   update-kube:
     name: Update Kubernetes Manifest
