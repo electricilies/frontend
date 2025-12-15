@@ -4,6 +4,7 @@ import { CustomPagination } from "@/app/_components/CustomPagination";
 import Image from "next/image";
 import ProductHeaderOptions from "@/app/(cms)/admin/products/_components/ProductHeaderOptions";
 import ProductTableActions from "@/app/(cms)/admin/products/_components/ProductTableActions";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -119,7 +120,14 @@ export default async function CategoriesPage({
                   className="transition-colors duration-200 hover:bg-gray-50"
                 >
                   <td className="border-border-general px-4 py-3">
-                    {product.name}
+                    <Link
+                      href={`/products/${product.id}`}
+                      target={"_blank"}
+                      rel={"noopener noreferrer"}
+                      className="font-medium text-blue-600 hover:underline"
+                    >
+                      {product.name}
+                    </Link>
                   </td>
                   <td className="border-border-general px-4 py-3">
                     {product.price}

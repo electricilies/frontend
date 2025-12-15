@@ -5,6 +5,7 @@ import { EditProductGeneralDialog } from "@/app/(cms)/admin/products/EditProduct
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { DeleteButton } from "@/app/(cms)/_components/DeleteButton/DeleteButton";
+import { useRouter } from "next/navigation";
 
 interface ProductTableActionsProps {
   product: Product;
@@ -17,6 +18,7 @@ export default function ProductTableActions({
 }: ProductTableActionsProps) {
   const session = useSession();
   const token = session.data?.accessToken;
+  const router = useRouter();
 
   const handleDelete = async (productId: string) => {
     const response = await fetch(
@@ -34,7 +36,8 @@ export default function ProductTableActions({
       throw new Error(errorData.message || "Failed to delete product");
     }
 
-    toast.success("Product deleted successfully");
+    toast.success("Đã xoá sản phẩm thành công");
+    router.refresh();
   };
 
   return (

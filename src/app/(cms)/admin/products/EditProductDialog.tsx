@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError } from "@/components/ui/field";
 import { Label } from "@/components/ui/label";
 import { Category } from "@/types/types";
+import { useRouter } from "next/navigation";
 
 const editGeneralSchema = z.object({
   name: z.string().min(1, "Tên sản phẩm không được để trống"),
@@ -57,6 +58,7 @@ export function EditProductGeneralDialog({
   categories,
   onSuccess,
 }: EditProductGeneralDialogProps) {
+  const router = useRouter();
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
 
@@ -97,10 +99,15 @@ export function EditProductGeneralDialog({
         },
       );
 
-      if (!res.ok) throw new Error("Failed to update product");
+      if (!res.ok) {
+        const errorData = await res.json();
+        toast.error(errorData.message || "Cập nhật thông tin thất bại");
+        return;
+      }
 
       toast.success("Cập nhật thông tin thành công!");
       setOpen(false);
+      router.refresh();
       if (onSuccess) onSuccess();
     } catch (error) {
       console.error(error);
@@ -122,92 +129,91 @@ export function EditProductGeneralDialog({
             Cập nhật tên, danh mục và mô tả sản phẩm.
           </DialogDescription>
         </DialogHeader>
-        <form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <Controller
-              control={form.control}
-              name="name"
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <Label htmlFor="name">Product Name</Label>
-                  <Input
-                    {...field}
-                    aria-invalid={fieldState.invalid}
-                    id="name"
-                    placeholder="Tên sản phẩm..."
-                  />
-                  {fieldState.error && (
-                    <FieldError>{fieldState.error.message}</FieldError>
-                  )}
-                </Field>
-              )}
-            />
-            <Controller
-              control={form.control}
-              name="categoryId"
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <Label htmlFor="category">Category</Label>
-                  <Select
-                    {...field}
-                    onValueChange={field.onChange}
-                    value={field.value}
-                  >
-                    <SelectTrigger
-                      aria-invalid={fieldState.invalid}
-                      id={"category"}
-                    >
-                      <SelectValue placeholder="Select a category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map((category) => (
-                        <SelectItem key={category.id} value={category.id}>
-                          {category.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  {fieldState.error && (
-                    <FieldError>{fieldState.error.message}</FieldError>
-                  )}
-                </Field>
-              )}
-            />
-            <Controller
-              control={form.control}
-              name="description"
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    {...field}
-                    aria-invalid={fieldState.invalid}
-                    id="description"
-                    placeholder="Mô tả sản phẩm..."
-                    rows={4}
-                  />
-                  {fieldState.error && (
-                    <FieldError>{fieldState.error.message}</FieldError>
-                  )}
-                </Field>
-              )}
-            />
-            <DialogFooter>
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setOpen(false)}
-              >
-                Cancel
-              </Button>
-              <Button type="submit" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting && (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <Controller
+            control={form.control}
+            name="name"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <Label htmlFor="name">Product Name</Label>
+                <Input
+                  {...field}
+                  aria-invalid={fieldState.invalid}
+                  id="name"
+                  placeholder="Tên sản phẩm..."
+                />
+                {fieldState.error && (
+                  <FieldError>{fieldState.error.message}</FieldError>
                 )}
-                Save Changes
-              </Button>
-            </DialogFooter>
-          </form>
+              </Field>
+            )}
+          />
+          <Controller
+            control={form.control}
+            name="categoryId"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <Label htmlFor="category">Category</Label>
+                <Select
+                  {...field}
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
+                  <SelectTrigger
+                    aria-invalid={fieldState.invalid}
+                    id={"category"}
+                  >
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((category) => (
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {fieldState.error && (
+                  <FieldError>{fieldState.error.message}</FieldError>
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            control={form.control}
+            name="description"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  {...field}
+                  aria-invalid={fieldState.invalid}
+                  id="description"
+                  placeholder="Mô tả sản phẩm..."
+                  className={"max-h-[400px] overflow-y-scroll break-all"}
+                  rows={4}
+                />
+                {fieldState.error && (
+                  <FieldError>{fieldState.error.message}</FieldError>
+                )}
+              </Field>
+            )}
+          />
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" disabled={form.formState.isSubmitting}>
+              {form.formState.isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Save Changes
+            </Button>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
