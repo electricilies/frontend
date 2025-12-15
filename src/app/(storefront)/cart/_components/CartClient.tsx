@@ -50,9 +50,6 @@ export default function CartClient({ cartData }: CartClientProps) {
   };
 
   const updateItemQuantity = async (itemId: string, quantity: number) => {
-    console.log(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/carts/${cartId}/item/${itemId}`,
-    );
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/carts/${cartId}/item/${itemId}`,
       {
@@ -86,6 +83,7 @@ export default function CartClient({ cartData }: CartClientProps) {
 
     if (!res.ok) {
       const err = await res.json();
+      toast.error(err.message || "Xóa sản phẩm khỏi giỏ hàng thất bại");
       throw new Error(err.message || "Failed to remove cart item");
     }
 
