@@ -5,6 +5,7 @@ import { AttributeDialogContent } from "@/app/(cms)/admin/attributes/_components
 import { Attribute } from "@/types/types";
 import { DeleteButton } from "@/app/(cms)/_components/DeleteButton/DeleteButton";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 interface AttributeTableActionsProps {
   attribute: Attribute;
@@ -27,8 +28,10 @@ export default function AttributeTableActions({
     );
     if (!response.ok) {
       const errorData = await response.json();
+      toast.error(errorData.message || "Failed to delete attribute");
       throw new Error(errorData.message || "Failed to delete attribute");
     }
+    toast.success("Attribute deleted successfully");
   };
 
   return (
