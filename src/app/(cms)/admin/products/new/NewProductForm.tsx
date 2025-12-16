@@ -366,11 +366,12 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
                             }}
                           />
                           <button
+                            id={"delete-option"}
                             type={"button"}
                             className={`ml-2 rounded p-1 text-red-500 hover:bg-red-50 hover:text-red-600`}
                             onClick={() => removeOption(index)}
                           >
-                            <Trash2 id={"delete-option"} className="size-6" />
+                            <Trash2 className="size-6" />
                           </button>
                         </>
                       )}
