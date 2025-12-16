@@ -48,7 +48,6 @@ export default function CheckoutPage() {
   });
 
   const onSubmit = async (data: CheckoutFormData) => {
-    const timeout = data.paymentMethod === "cod" ? 2000 : 5000;
     setIsProcessingPayment(true);
 
     const orderPayload = {
@@ -61,34 +60,38 @@ export default function CheckoutPage() {
       recipientName: data.fullName,
       phoneNumber: data.phone,
       provider: data.paymentMethod.toUpperCase(),
-      returnUrl: `${window.location.origin}/`,
+      returnUrl: `${window.location.origin}/checkout/success`,
       userId: session.data?.user?.id,
     };
 
-    setTimeout(async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/orders`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session.data?.accessToken}`,
-        },
-        body: JSON.stringify(orderPayload),
-      });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.data?.accessToken}`,
+      },
+      body: JSON.stringify(orderPayload),
+    });
 
-      if (!res.ok) {
-        setIsProcessingPayment(false);
-        toast.error("Đã có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại.");
-        return;
-      }
+    if (!res.ok) {
+      setIsProcessingPayment(false);
+      toast.error("Đã có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại.");
+      return;
+    }
 
-      toast.success("Đơn hàng đã được tạo thành công!");
+    toast.success("Đơn hàng đã được tạo thành công!");
+
+    if (data.paymentMethod !== "cod") {
+      const resData = await res.json();
+      const paymentUrl: string = resData.payment_url;
+      window.location.href = `${paymentUrl}`;
+    } else {
       setIsSuccessPayment(true);
-
       setTimeout(() => {
         order.clearOrderItems();
         window.location.href = `${window.location.origin}/`;
-      }, 4000);
-    }, timeout);
+      }, 3000);
+    }
   };
 
   return (
