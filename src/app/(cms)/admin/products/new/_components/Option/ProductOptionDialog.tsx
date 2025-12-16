@@ -150,6 +150,7 @@ export function ProductOptionDialog({
           <div className={"flex w-full items-center gap-2"}>
             <h4 className="text-h4">Values</h4>
             <Button
+              id={"add-option-value"}
               type="button"
               size="icon"
               variant="ghost"
@@ -190,6 +191,7 @@ export function ProductOptionDialog({
                           aria-invalid={fieldState.invalid}
                         />
                         <Button
+                          id={`remove-option-value-${index}`}
                           type="button"
                           variant="ghost"
                           size="icon"

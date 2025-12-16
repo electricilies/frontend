@@ -259,6 +259,7 @@ export function ProductVariantDialog({
             <div className={"flex items-center gap-4"}>
               <h4 className={"text-h4"}>Images</h4>
               <button
+                id={"upload-variant-image"}
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
@@ -290,6 +291,7 @@ export function ProductVariantDialog({
                     className={"h-[150px] w-[150px] rounded-md object-contain"}
                   />
                   <button
+                    id={`remove-variant-image-${index}`}
                     type={"button"}
                     className={
                       "absolute top-1 right-1 rounded-full bg-white p-1 text-red-500 hover:bg-red-50 hover:text-red-600"
