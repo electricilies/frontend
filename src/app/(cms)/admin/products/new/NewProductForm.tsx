@@ -409,6 +409,7 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
         <div className={"flex items-center space-x-4"}>
           <h4 className={"text-h4"}>Images</h4>
           <button
+            id={"upload-image-button"}
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}

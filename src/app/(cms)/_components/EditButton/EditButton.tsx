@@ -33,7 +33,12 @@ export function EditButton({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant} size={size} className={className}>
+        <Button
+          id={"edit-button"}
+          variant={variant}
+          size={size}
+          className={className}
+        >
           <Edit className="[&_svg]:size-4" size={iconSize} />
         </Button>
       </DialogTrigger>

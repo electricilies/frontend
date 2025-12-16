@@ -30,7 +30,12 @@ export function CreateButton({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant} size={size} className={className}>
+        <Button
+          variant={variant}
+          size={size}
+          className={className}
+          id="create-button"
+        >
           <Plus className="h-4 w-4" />
         </Button>
       </DialogTrigger>

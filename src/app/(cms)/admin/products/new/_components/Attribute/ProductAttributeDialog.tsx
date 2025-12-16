@@ -103,7 +103,12 @@ export function ProductAttributeDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="icon" variant="ghost" type="button">
+        <Button
+          id={"create-attribute"}
+          size="icon"
+          variant="ghost"
+          type="button"
+        >
           {mode === "create" ? (
             <PlusCircle className="size-5" />
           ) : (
@@ -167,7 +172,10 @@ export function ProductAttributeDialog({
                       }}
                       value={field.value}
                     >
-                      <SelectTrigger aria-invalid={fieldState.invalid}>
+                      <SelectTrigger
+                        id={"attribute-id"}
+                        aria-invalid={fieldState.invalid}
+                      >
                         <SelectValue placeholder="Select attribute" />
                       </SelectTrigger>
                       <SelectContent>

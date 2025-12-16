@@ -45,9 +45,10 @@ export function SearchInput({
   };
 
   return (
-    <div className={`relative w-full ${className}`}>
+    <div className={`search-container relative w-full ${className}`}>
       <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-500" />
       <Input
+        id={"search-input"}
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}

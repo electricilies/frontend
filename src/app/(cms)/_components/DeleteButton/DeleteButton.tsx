@@ -67,6 +67,7 @@ export function DeleteButton({
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button
+          id={"delete-button"}
           variant={variant}
           size={size}
           className={`text-red-500 hover:bg-red-50 hover:text-red-600 ${className}`}
@@ -82,13 +83,16 @@ export function DeleteButton({
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isDeleting}>Hủy</AlertDialogCancel>
+          <AlertDialogCancel id={"alert-cancel"} disabled={isDeleting}>
+            Hủy
+          </AlertDialogCancel>
 
           <AlertDialogAction
             onClick={(e) => {
               e.preventDefault();
               handleDelete();
             }}
+            id={"alert-delete"}
             disabled={isDeleting}
             className="bg-red-600 text-white hover:bg-red-700"
           >

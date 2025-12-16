@@ -84,7 +84,12 @@ export function ProductOptionDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="icon" variant="ghost" type="button">
+        <Button
+          size="icon"
+          variant="ghost"
+          type="button"
+          id={mode === "create" ? "create-option" : "edit-option"}
+        >
           {mode === "create" ? (
             <PlusCircle className="size-5" />
           ) : (
