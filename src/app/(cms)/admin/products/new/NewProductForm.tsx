@@ -266,6 +266,7 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
                         )}
                       />
                       <button
+                        id={"delete-attribute"}
                         type={"button"}
                         className={`ml-2 rounded p-1 text-red-500 hover:bg-red-50 hover:text-red-600`}
                         onClick={() => removeAttr(index)}
@@ -329,6 +330,7 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
               )}
             </div>
             <table
+              id={"option-table"}
               className={"w-full border-collapse overflow-hidden shadow-sm"}
             >
               <thead>
@@ -368,7 +370,7 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
                             className={`ml-2 rounded p-1 text-red-500 hover:bg-red-50 hover:text-red-600`}
                             onClick={() => removeOption(index)}
                           >
-                            <Trash2 className="size-6" />
+                            <Trash2 id={"delete-option"} className="size-6" />
                           </button>
                         </>
                       )}
@@ -567,6 +569,7 @@ export default function NewProductForm({ categories }: NewProductFormProps) {
                           }}
                         />
                         <button
+                          id={"delete-variant"}
                           type={"button"}
                           className={`ml-2 rounded p-1 text-red-500 hover:bg-red-50 hover:text-red-600`}
                           onClick={() => removeVariant(index)}
