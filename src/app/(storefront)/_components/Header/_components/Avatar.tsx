@@ -27,20 +27,38 @@ export default function Avatar({ mode }: { mode: "cms" | "storefront" }) {
                 }}
               />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className={"w-40"} align={"center"}>
+            <DropdownMenuContent className={"w-fit"} align={"center"}>
               <DropdownMenuItem>
-                <strong>{session.data.user.email}</strong>
+                <strong className={"line-clamp-1 max-w-32"}>
+                  {session.data.user.email}
+                </strong>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link
+                  href={
+                    "https://keycloak.kevinnitro.id.vn/realms/electricilies-dev/account"
+                  }
+                  target={"_blank"}
+                  className={"w-full"}
+                >
+                  Profile
+                </Link>
               </DropdownMenuItem>
               {(session.data.role === "admin" ||
                 session.data.role === "staff") && (
                 <DropdownMenuItem>
-                  <Link href={mode === "cms" ? "/" : "/admin"}>
+                  <Link
+                    href={mode === "cms" ? "/" : "/admin"}
+                    className={"w-full"}
+                  >
                     {mode === "cms" ? "Storefront" : "Admin Panel"}
                   </Link>
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem>
-                <button onClick={() => signOut()}>Sign Out</button>
+                <button className={"w-ful"} onClick={() => signOut()}>
+                  Sign Out
+                </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
