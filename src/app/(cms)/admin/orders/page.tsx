@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { OrderResponse } from "@/types/types";
+import { CustomPagination } from "@/app/_components/CustomPagination";
 
 export const dynamic = "force-dynamic";
 
@@ -75,6 +76,7 @@ export default async function OrdersPage() {
               ))}
             </tbody>
           </table>
+          <CustomPagination totalPages={ordersData?.meta.totalPages} />
         </>
       ) : (
         <p className="text-h4 text-gray-500">No attributes found.</p>
